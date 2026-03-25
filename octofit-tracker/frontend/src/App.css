@@ -1,0 +1,201 @@
+/* ══════════════════════════════════════════
+   OctoFit Tracker — Global Styles
+   ══════════════════════════════════════════ */
+
+/* ── CSS Variables ── */
+:root {
+  --octofit-green:      #3fb950;
+  --octofit-green-dark: #2ea043;
+  --octofit-bg-dark:    #0d1117;
+  --octofit-forest:     #1a3a2a;
+  --octofit-page-bg:    #eaf4ef;
+  --octofit-text:       #1a2b1f;
+  --octofit-muted:      #5a7a65;
+  --octofit-border:     #c3e6cb;
+}
+
+/* ── Global ── */
+body {
+  background-color: var(--octofit-page-bg);
+  color: var(--octofit-text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--octofit-forest);
+  font-weight: 700;
+}
+
+a {
+  color: var(--octofit-green-dark);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--octofit-green);
+  text-decoration: underline;
+}
+
+/* ── Navbar ── */
+.octofit-navbar {
+  background: linear-gradient(90deg, var(--octofit-bg-dark) 0%, var(--octofit-forest) 100%) !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+  padding: 0.5rem 0;
+}
+
+.octofit-navbar .navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--octofit-green) !important;
+  letter-spacing: 0.4px;
+}
+
+.octofit-navbar .navbar-brand img {
+  height: 38px;
+  width: auto;
+  border-radius: 6px;
+  border: 2px solid var(--octofit-green-dark);
+  box-shadow: 0 0 8px rgba(63, 185, 80, 0.35);
+}
+
+.octofit-navbar .nav-link {
+  color: #c9d1d9 !important;
+  font-weight: 500;
+  transition: color 0.2s, background-color 0.2s;
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.75rem !important;
+  margin-left: 0.15rem;
+}
+
+.octofit-navbar .nav-link:hover {
+  color: var(--octofit-green) !important;
+  background-color: rgba(63, 185, 80, 0.1);
+}
+
+.octofit-navbar .nav-link.active {
+  color: var(--octofit-green) !important;
+  background-color: rgba(63, 185, 80, 0.18);
+  font-weight: 700;
+}
+
+/* ── Buttons (global overrides) ── */
+.btn-outline-success {
+  --bs-btn-color:        var(--octofit-green);
+  --bs-btn-border-color: var(--octofit-green);
+  --bs-btn-hover-bg:     var(--octofit-green);
+  --bs-btn-hover-color:  #fff;
+}
+
+.btn-success {
+  --bs-btn-bg:           var(--octofit-green-dark);
+  --bs-btn-border-color: var(--octofit-green-dark);
+}
+
+/* ── Hero / Welcome card ── */
+.octofit-hero {
+  background: linear-gradient(135deg, var(--octofit-bg-dark) 0%, var(--octofit-forest) 100%);
+  color: #fff;
+  border-radius: 0.85rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+.octofit-hero .display-5 {
+  font-weight: 800;
+  color: var(--octofit-green);
+  text-shadow: 0 0 20px rgba(63, 185, 80, 0.25);
+}
+
+.octofit-hero p.lead {
+  color: #c9d1d9;
+}
+
+/* ── Shared card wrapper ── */
+.octofit-card {
+  border: 1px solid var(--octofit-border);
+  border-radius: 0.85rem;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.09);
+  overflow: hidden;
+}
+
+.octofit-card .card-header {
+  background: linear-gradient(90deg, var(--octofit-bg-dark) 0%, var(--octofit-forest) 100%);
+  color: var(--octofit-green);
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 2px solid var(--octofit-green-dark);
+}
+
+.octofit-card .card-footer {
+  background-color: #f0faf3;
+  border-top: 1px solid var(--octofit-border);
+  color: var(--octofit-muted);
+}
+
+/* ── Tables ── */
+.octofit-table {
+  --bs-table-bg: #ffffff;
+  --bs-table-striped-bg: #f0faf3;
+  --bs-table-hover-bg: #d4edda;
+  border-color: var(--octofit-border);
+}
+
+.octofit-table thead {
+  background: linear-gradient(90deg, var(--octofit-forest) 0%, #1e4d34 100%);
+  color: var(--octofit-green);
+}
+
+.octofit-table thead th {
+  border-color: var(--octofit-green-dark);
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  padding: 0.75rem 1rem;
+}
+
+.octofit-table tbody td {
+  vertical-align: middle;
+  color: var(--octofit-text);
+  border-color: var(--octofit-border);
+  padding: 0.65rem 1rem;
+}
+
+.octofit-table tbody tr:hover td {
+  background-color: #d4edda;
+}
+
+/* ── Badges ── */
+.badge-rank {
+  min-width: 2rem;
+}
+
+.badge.bg-success {
+  background-color: var(--octofit-green-dark) !important;
+}
+
+/* ── Alerts ── */
+.alert-danger {
+  border-left: 4px solid #dc3545;
+  background-color: #fff5f5;
+  color: #842029;
+}
+
+/* ── Loading / Error states ── */
+.octofit-spinner-wrapper {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner-border.text-success {
+  color: var(--octofit-green) !important;
+  width: 3rem;
+  height: 3rem;
+}
+
