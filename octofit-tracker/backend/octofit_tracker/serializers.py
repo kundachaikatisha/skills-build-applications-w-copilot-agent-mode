@@ -10,7 +10,7 @@ class TeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Team
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'members']
 
     def get_id(self, obj):
         return str(obj.pk)
@@ -18,7 +18,6 @@ class TeamSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField()
-    team = TeamSerializer(read_only=True)
 
     class Meta:
         model = User
@@ -30,11 +29,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ActivitySerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField()
-    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Activity
-        fields = ['id', 'user', 'type', 'duration', 'distance', 'timestamp']
+        fields = ['id', 'username', 'type', 'duration', 'distance', 'timestamp']
 
     def get_id(self, obj):
         return str(obj.pk)
@@ -53,11 +51,10 @@ class WorkoutSerializer(serializers.ModelSerializer):
 
 class LeaderboardSerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField()
-    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Leaderboard
-        fields = ['id', 'user', 'points']
+        fields = ['id', 'username', 'points']
 
     def get_id(self, obj):
         return str(obj.pk)
