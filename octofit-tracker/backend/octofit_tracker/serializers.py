@@ -5,6 +5,12 @@ from octofit_tracker.models import Team, Activity, Workout, Leaderboard
 User = get_user_model()
 
 
+def _get_id(obj):
+    """Return the MongoDB _id as a string, falling back to pk."""
+    raw = getattr(obj, '_id', None) or obj.pk
+    return str(raw) if raw is not None else None
+
+
 class TeamSerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField()
 
@@ -13,7 +19,7 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'members']
 
     def get_id(self, obj):
-        return str(obj.pk)
+        return _get_id(obj)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -24,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'team']
 
     def get_id(self, obj):
-        return str(obj.pk)
+        return _get_id(obj)
 
 
 class ActivitySerializer(serializers.ModelSerializer):
@@ -35,7 +41,7 @@ class ActivitySerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'type', 'duration', 'distance', 'timestamp']
 
     def get_id(self, obj):
-        return str(obj.pk)
+        return _get_id(obj)
 
 
 class WorkoutSerializer(serializers.ModelSerializer):
@@ -46,7 +52,7 @@ class WorkoutSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description']
 
     def get_id(self, obj):
-        return str(obj.pk)
+        return _get_id(obj)
 
 
 class LeaderboardSerializer(serializers.ModelSerializer):
@@ -57,4 +63,4 @@ class LeaderboardSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'points']
 
     def get_id(self, obj):
-        return str(obj.pk)
+        return _get_id(obj)
