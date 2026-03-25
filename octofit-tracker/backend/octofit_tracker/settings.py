@@ -12,6 +12,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,9 +29,8 @@ SECRET_KEY = 'django-insecure-3na6w%fp+w=+$j@9+tc*o1c6hmaj(m22=9#$=zy)vcan0)4py#
 DEBUG = True
 
 
-# Allow all hosts for development
-import os
-ALLOWED_HOSTS = ['*']
+# Allow localhost and codespace host for development.
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 if os.environ.get('CODESPACE_NAME'):
     ALLOWED_HOSTS.append(f"{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
 
@@ -84,19 +84,29 @@ WSGI_APPLICATION = 'octofit_tracker.wsgi.application'
 
 
 # Database
-# Use Djongo to connect to MongoDB
+# Use Djongo to connect to MongoDB.
+mongo_client = {
+    'host': os.environ.get('MONGODB_URI', 'mongodb://localhost:27017'),
+}
+
+mongo_username = os.environ.get('MONGODB_USERNAME')
+mongo_password = os.environ.get('MONGODB_PASSWORD')
+
+# Only pass auth settings when credentials are provided.
+if mongo_username and mongo_password:
+    mongo_client.update({
+        'username': mongo_username,
+        'password': mongo_password,
+        'authSource': os.environ.get('MONGODB_AUTH_SOURCE', 'admin'),
+        'authMechanism': os.environ.get('MONGODB_AUTH_MECHANISM', 'SCRAM-SHA-1'),
+    })
+
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'octofit_db',
+        'NAME': os.environ.get('MONGODB_DATABASE', 'octofit_db'),
         'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': 'mongodb://localhost:27017',
-            'username': '',
-            'password': '',
-            'authSource': 'admin',
-            'authMechanism': 'SCRAM-SHA-1',
-        },
+        'CLIENT': mongo_client,
     }
 }
 
