@@ -17,7 +17,19 @@ import os
 
 from django.contrib import admin
 from django.http import JsonResponse
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+from octofit_tracker.views import (
+    TeamViewSet, UserViewSet, ActivityViewSet,
+    WorkoutViewSet, LeaderboardViewSet,
+)
+
+router = DefaultRouter()
+router.register(r'teams', TeamViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'activities', ActivityViewSet)
+router.register(r'workouts', WorkoutViewSet)
+router.register(r'leaderboard', LeaderboardViewSet)
 
 
 def api_root(_request):
@@ -37,4 +49,6 @@ def api_root(_request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', api_root, name='api-root'),
+    path('api/', include(router.urls)),
+    path('', api_root, name='root'),
 ]
